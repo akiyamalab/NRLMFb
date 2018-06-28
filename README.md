@@ -5,7 +5,7 @@ Techniques for predicting interactions between a drug and a target (protein) are
 Requirements
 ------------
 ### Python
-You need to use Python 3.x for executing this scripts. We recommends that you use Anaconda 2.4.0 to set up python environment. This script was created by using Python 3.5.2. For Python 3.5.2 please refer to the following URL.<br>
+You need to use Python 3.x for executing this scripts. We recommends that you use Anaconda 2.4.0 to set up python environment. This script was created by using Python 3.5.4. For Python 3.5.4 please refer to the following URL.<br>
 https://www.python.org/downloads/release/python-352/<br>
 
 ### Python packages
@@ -18,4 +18,33 @@ In addition, we use Numpy, scikit-learn (ver. 0.18.1 and above), scipy, pymatbri
 ### Datasets
 The drug-target interaction dataset created by Yamanishi et al. can be downloaded from the following URL.<br>
 http://web.kuicr.kyoto-u.ac.jp/supp/yoshi/drugtarget/<br>
+
+Usage
+-----
+
+### Options
+
+
+### Examples
+
+
+Acknowledgement
+---------------
+This script was created based on PyDTI developed by Liu et al. PyDTI can be accessed from the following URL. https://github.com/stephenliu0423/PyDTI.git
+
+Contact
+-------
+These scripts was implemented by Tomohiro Ban.
+E-mail: ban@bi.c.titech.ac.jp
+
+Department of Computer Science, School of Computing, Tokyo Institute of Technology, Japan
+http://www.bi.cs.titech.ac.jp/
+
+If you have any questions, please feel free to contact the author.
+
+References
+----------
+In preparetion ...
+
+Copyright © 2017 Akiyama_Laboratory, Tokyo Institute of Technology, All Rights Reserved.
 
