@@ -1,4 +1,4 @@
-#!/home/5/15D38037/.pyenv/versions/anaconda3-2.4.0/bin/python3.5
+#!/usr/bin/env python3
 #
 # Tomohiro Ban developed this script at April 11, 2018.
 #

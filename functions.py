@@ -54,7 +54,7 @@ def cross_validation(intMat, seeds, cv=0, num=10):
             index = prng.permutation(num_drugs)
         if cv == 1:
             index = prng.permutation(intMat.size)
-        step = index.size/num
+        step = int(index.size/num)
         for i in range(num):
             if i < num-1:
                 ii = index[i*step:(i+1)*step]

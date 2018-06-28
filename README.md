@@ -25,7 +25,7 @@ Usage
 ### Examples
 Command to execute this script
 ```shell
-$ python PyDTI.py --method="nrlmfb" --dataset="nr" --cvs="1" --data-dir="../src" --gpmi="delta=1e-100 max_iter=2688 n_init=1" --scoring="auc" --specify-arg=0 --params="params.txt" --log="job1.log"
+$ python PyDTI.py --method="nrlmfb" --dataset="nr" --cvs="1" --data-dir="." --gpmi="delta=1e-100 max_iter=2688 n_init=1" --scoring="auc" --specify-arg=0 --params="params.txt" --log="job1.log"
 ```
 
 
