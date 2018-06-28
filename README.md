@@ -22,10 +22,11 @@ http://web.kuicr.kyoto-u.ac.jp/supp/yoshi/drugtarget/<br>
 Usage
 -----
 
-### Options
-
-
 ### Examples
+Command to execute this script
+```shell
+$ python PyDTI.py --method="nrlmfb" --dataset="nr" --cvs="1" --data-dir="../src" --gpmi="delta=1e-100 max_iter=2688 n_init=1" --scoring="auc" --specify-arg=0 --params="params.txt" --log="job1.log"
+```
 
 
 Acknowledgement
@@ -46,5 +47,5 @@ References
 ----------
 In preparetion ...
 
-Copyright © 2017 Akiyama_Laboratory, Tokyo Institute of Technology, All Rights Reserved.
+Copyright © 2018 Akiyama_Laboratory, Tokyo Institute of Technology, All Rights Reserved.
 
