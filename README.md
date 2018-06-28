@@ -33,6 +33,8 @@ Acknowledgement
 ---------------
 This script was created based on PyDTI developed by Liu et al. PyDTI can be accessed from the following URL. https://github.com/stephenliu0423/PyDTI.git
 
+We also created this script based on the BO-DTI script developed py Ban et al. BO-DTI can be accessed from the following URL. https://github.com/akiyamalab/BO-DTI.git
+
 Contact
 -------
 These scripts was implemented by Tomohiro Ban.
