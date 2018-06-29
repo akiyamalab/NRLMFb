@@ -70,14 +70,82 @@ def leave_one_out1(model,dataset,data_dir='.',seed=0):
     return table
 
 
-def leave_one_out2(method,dataset,data_dir=".",seed=0):
+def leave_one_out2(model,dataset,data_dir=".",seed=0):
 
-    return None
+    intMat, Kd, Kt = load_data_from_file(dataset,os.path.join(data_dir,'dataset'))
+    drugs, targets = get_drugs_targets_names(dataset,os.path.join(data_dir,'dataset'))
+    Y = pd.DataFrame(intMat,index=drugs,columns=targets).astype(int)
+    
+    nd = len(Y.index)
+    nt = len(Y.columns)
+    
+    pairs = [[d,t] for d in range(nd) for t in range(nt)]
+    actives = Y.get_values().ravel()
+    W = np.ones(intMat.shape)
+    model.fix_model(W,intMat,Kd,Kt,seed)
+    scores = model.predict_scores(pairs,1).reshape((nd,nt))
+    scmat = pd.DataFrame(scores,index=drugs,columns=targets)
+
+    labels = ['drug','target','active','score','gamma']
+    table = pd.DataFrame(columns=labels)
+
+    num = 0
+    for d in Y.columns:
+        print(d,np.where(Y.index==t)[0][0],'/',nd)
+        W_ = pd.DataFrame(np.ones(intMat.shape),index=drugs,columns=targets)
+        W_.ix[d,:] = 0
+        W = W_.get_values()
+        model.fix_model(W,intMat,Kd,Kt,seed)
+        for t in Y.columns:
+            d_ = np.where(Y.index==d)[0][0]
+            t_ = np.where(Y.columns==t)[0][0]
+            a = Y.ix[d_,t_]
+            s = round(model.predict_scores([[d_,t_]],1)[0],4)
+            g = int(gamma(W_*Y,d,t))
+            result = pd.DataFrame([[d,t,a,s,g]],index=[num],columns=labels)
+            table = pd.concat([table,result],axis=0)
+            num += 1
+            
+    return table
 
 
-def leave_one_out3(method,dataset,data_dir=".",seed=0):
+def leave_one_out3(model,dataset,data_dir=".",seed=0):
 
-    return None
+    intMat, Kd, Kt = load_data_from_file(dataset,os.path.join(data_dir,'dataset'))
+    drugs, targets = get_drugs_targets_names(dataset,os.path.join(data_dir,'dataset'))
+    Y = pd.DataFrame(intMat,index=drugs,columns=targets).astype(int)
+    
+    nd = len(Y.index)
+    nt = len(Y.columns)
+    
+    pairs = [[d,t] for d in range(nd) for t in range(nt)]
+    actives = Y.get_values().ravel()
+    W = np.ones(intMat.shape)
+    model.fix_model(W,intMat,Kd,Kt,seed)
+    scores = model.predict_scores(pairs,1).reshape((nd,nt))
+    scmat = pd.DataFrame(scores,index=drugs,columns=targets)
+
+    labels = ['drug','target','active','score','gamma']
+    table = pd.DataFrame(columns=labels)
+
+    num = 0
+    for t in Y.columns:
+        print(t,np.where(Y.columns==t)[0][0],'/',nt)
+        W_ = pd.DataFrame(np.ones(intMat.shape),index=drugs,columns=targets)
+        W_.ix[:,t] = 0
+        W = W_.get_values()
+        model.fix_model(W,intMat,Kd,Kt,seed)
+        for d in Y.index:
+            d_ = np.where(Y.index==d)[0][0]
+            t_ = np.where(Y.columns==t)[0][0]
+            a = Y.ix[d_,t_]
+            s = round(model.predict_scores([[d_,t_]],1)[0],4)
+            g = int(gamma(W_*Y,d,t))
+            result = pd.DataFrame([[d,t,a,s,g]],index=[num],columns=labels)
+            table = pd.concat([table,result],axis=0)
+            num += 1
+            
+    return table
 
 
 def getparams(method):
@@ -89,13 +157,13 @@ def getparams(method):
         params['K1'] = 5
         params['K2'] = 5
         params['num_factors'] = 100
-        params['lambda_d'] = 1.0
-        params['lambda_t'] = 1.0
-        params['alpha'] = 1.0
-        params['beta'] = 0.5
-        params['eta1'] = 7
-        params['eta2'] = 3
-        params['theta'] = 0.125
+        params['lambda_d'] = 0.5
+        params['lambda_t'] = 0.5
+        params['alpha'] = 0.5
+        params['beta'] = 0.25
+        params['eta1'] = 32
+        params['eta2'] = 4
+        params['theta'] = 1.0
         params['max_iter'] = 100
 
     if method == 'nrlmf':
@@ -103,12 +171,12 @@ def getparams(method):
         params['K1'] = 5
         params['K2'] = 5
         params['num_factors'] = 100
-        params['lambda_d'] = 1.0
-        params['lambda_t'] = 1.0
-        params['alpha'] = 1.0
-        params['beta'] = 0.5
-        params['theta'] = 0.125
-        params['max_iter'] = 100        
+        params['lambda_d'] = 0.5
+        params['lambda_t'] = 0.5
+        params['alpha'] = 0.5
+        params['beta'] = 0.25
+        params['theta'] = 1.0
+        params['max_iter'] = 100
 
     return params
 
