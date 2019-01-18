@@ -1,6 +1,6 @@
 # Script of "NRLMFβ: Bata-distribution-rescored Neighborhood Regularized Logistic Matrix Factorization for Improving Performance of Drug–Target Interaction Prediction"
 
-Techniques for predicting interactions between a drug and a target (protein) are useful for strategic drug repositioning. Neighborhood regularized logistic matrix factorization (NRLMF) is known as one of the state-of-the-art drug--target interaction prediction method, which is based on a statistical model using the Bernoulli distribution. However, our survey revealed a problem that the prediction does not work well when drug--target interaction pairs have less active information (e.g. we supposed a sum of the number of ligands for a target and the number of target proteins for a drug). In this study, in order to solve this problem, we proposed neighborhood regularized logistic matrix factorization with beta distribution rescoring (NRLMFβ), which is an algorithm to correct the score of NRLMF. The Beta distribution is known as a conjugative prior distribution of the Bernoulli distribution and it can reflect an amount of active information to its shape. Therefore, in NRLMFb, the Beta distribution was used for rescoring the NRLMF score. In the evaluation experiment, three types of 10-fold cross validation were performed five times for each of the four datasets (i.e. Nuclear receptor, GPCR, Ion channel, Enzyme) and we measured the average values of AUC and AUPR and 95¥% confidence intervals. As a result, the performance of NRLMFb was shown to exceed that of NRLMF. For this reason, we concluded that NRLMFb improved prediction accuracy as compared to NRLMF.
+Techniques for predicting interactions between a drug and a target (protein) are useful for strategic drug repositioning. Neighborhood regularized logistic matrix factorization (NRLMF) is known as one of the state-of-the-art drug--target interaction prediction method, which is based on a statistical model using the Bernoulli distribution. However, our survey revealed a problem that the prediction does not work well when drug--target interaction pairs have less active information (e.g. we supposed a sum of the number of ligands for a target and the number of target proteins for a drug). In this study, in order to solve this problem, we proposed neighborhood regularized logistic matrix factorization with beta distribution rescoring (NRLMFβ), which is an algorithm to correct the score of NRLMF. The Beta distribution is known as a conjugative prior distribution of the Bernoulli distribution and it can reflect an amount of active information to its shape. Therefore, in NRLMFβ, the Beta distribution was used for rescoring the NRLMF score. In the evaluation experiment, three types of 10-fold cross validation were performed five times for each of the four datasets (i.e. Nuclear receptor, GPCR, Ion channel, Enzyme) and we measured the average values of AUC and AUPR and 95¥% confidence intervals. As a result, the performance of NRLMFβ was shown to exceed that of NRLMF. For this reason, we concluded that NRLMFβ improved prediction accuracy as compared to NRLMF.
 
 Requirements
 ------------
@@ -39,7 +39,7 @@ Contact
 -------
 These scripts was implemented by Tomohiro Ban.
 E-mail: ban@bi.c.titech.ac.jp
-
+<br>
 Department of Computer Science, School of Computing, Tokyo Institute of Technology, Japan
 http://www.bi.cs.titech.ac.jp/
 
@@ -50,5 +50,5 @@ References
 Tomohiro Ban, Masahito Ohue, Yutaka Akiyama. NRLMFβ: Bata-distribution-rescored Neighborhood Regularized Logistic Matrix Factorization for Improving Performance of Drug–Target Interaction Prediction, _Biochemistry and Biophysics Reports_. (in press)
 
 ----------
-Copyright © 2018 Akiyama_Laboratory, Tokyo Institute of Technology, All Rights Reserved.
+Copyright © 2018 Akiyama Laboratory, Tokyo Institute of Technology, All Rights Reserved.
 
