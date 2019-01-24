@@ -28,10 +28,6 @@ Command to execute this script
 $ python PyDTI.py --method="nrlmfb" --dataset="nr" --cvs="1" --data-dir="." --gpmi="delta=1e-100 max_iter=2688 n_init=1" --scoring="auc" --specify-arg=0 --params="params.txt" --log="job1.log"
 ```
 
-External validation can be performed by the following command.
-```shell
-$ python PyDTI.py --method="nrlmfb" --dataset="gpcr" --cvs="1" --external="1" --data-dir="../src" --specify-arg=0 --gpmi="delta=1e-100 max_iter=2688 n_init=1" --scoring="auc" --params="../params.txt" --log="job.log"
-```
 
 Acknowledgement
 ---------------
