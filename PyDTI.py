@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/home/5/15D38037/.pyenv/versions/anaconda3-2.4.0/bin/python3.5
 #
 # Tomohiro Ban edited this script at January 9, 2018.
 #
@@ -10,6 +10,7 @@ import logging
 import time
 import getopt
 import cv_eval
+import ev_eval
 from functions import *
 from nrlmf import NRLMF
 from nrlmfb import NRLMFb
@@ -24,17 +25,21 @@ from new_pairs import novel_prediction_analysis
 def main(argv):
 
     try:
-        opts, args = getopt.getopt(argv, "m:d:f:c:s:o:n:p:g:q:r:l:w", ["method=","dataset=","data-dir=","cvs=","specify-arg=","method-opt=","predict-num=","scoring=","gpmi=","params=","output-dir=","log=","workdir="])
+        opts, args = getopt.getopt(argv, "m:d:f:c:e:s:o:n:p:g:q:r:l:w", ["method=","dataset=","data-dir=","cvs=","external=","specify-arg=","method-opt=","predict-num=","scoring=","gpmi=","params=","output-dir=","log=","workdir="])
     except getopt.GetoptError:
         sys.exit()
 
 #    data_dir = os.path.join(os.path.pardir, 'data')
 #    output_dir = os.path.join(os.path.pardir, 'output')
+    method = "nrlmf"
+    dataset = "nr"
     data_dir = '.'
     output_dir = '.'
     cvs, sp_arg, model_settings, predict_num = 1, 1, [], 0
+    external = 0
     scoring='auc'
     gpmi = None
+    params = None
     workdir = "./"
     logfile = 'job.log'
     
@@ -51,6 +56,8 @@ def main(argv):
             output_dir = arg
         if opt == "--cvs":
             cvs = int(arg)
+        if opt == "--external":
+            external = int(arg)
         if opt == "--specify-arg":
             sp_arg = int(arg)
         if opt == "--method-opt":
@@ -111,8 +118,9 @@ def main(argv):
         if cvs == 3:  # CV setting CVS3
             X, D, T, cv = intMat.T, targetMat, drugMat, 0
         cv_data = cross_validation(X, seeds, cv)
+        ev_data = external_validation(X, seeds, cv)
 
-    if sp_arg == 0 and predict_num == 0:
+    if sp_arg == 0 and predict_num == 0 and external == 0:
         if method == 'nrlmf':
             cv_eval.nrlmf_cv_eval(method,dataset,cv_data,X,D,T,cvs,args,logger,scoring=scoring,gpmi=gpmi,params=params)
         if method == 'nrlmfb':
@@ -127,6 +135,12 @@ def main(argv):
             cv_eval.kbmf_cv_eval(method, dataset, cv_data, X, D, T, cvs, args)
         if method == 'cmf':
             cv_eval.cmf_cv_eval(method, dataset, cv_data, X, D, T, cvs, args)
+
+    if sp_arg == 0 and predict_num == 0 and external == 1:
+        if method == 'nrlmf':
+            ev_eval.nrlmf_ev_eval(method,ev_data,X,D,T,logger,scoring=scoring,gpmi=gpmi,params=params)
+        if method == 'nrlmfb':
+            ev_eval.nrlmfb_ev_eval(method,ev_data,X,D,T,logger,scoring=scoring,gpmi=gpmi,params=params)
 
     if sp_arg == 1 or predict_num > 0:
         if method == 'nrlmf':

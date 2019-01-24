@@ -3,6 +3,8 @@ import os
 import numpy as np
 from collections import defaultdict
 
+import pandas as pd
+
 
 def load_data_from_file(dataset, folder):
     with open(os.path.join(folder, dataset+"_admat_dgc.txt"), "r") as inf:
@@ -61,15 +63,45 @@ def cross_validation(intMat, seeds, cv=0, num=10):
             else:
                 ii = index[i*step:]
             if cv == 0:
-                test_data = np.array([[k, j] for k in ii for j in range(num_targets)], dtype=np.int32)
+                test_data = np.array([[k, j] for k in ii for j in range(num_targets)],
+                                     dtype=np.int32)
             elif cv == 1:
-                test_data = np.array([[k/num_targets, k % num_targets] for k in ii], dtype=np.int32)
+                test_data = np.array([[k/num_targets, k % num_targets] for k in ii],
+                                     dtype=np.int32)
             x, y = test_data[:, 0], test_data[:, 1]
             test_label = intMat[x, y]
             W = np.ones(intMat.shape)
             W[x, y] = 0
             cv_data[seed].append((W, test_data, test_label))
     return cv_data
+
+
+def external_validation(intMat, seeds, cv=1, num=10, num_fold=5):
+    assert cv == 1
+    ev_data = defaultdict(list)
+    matrix = pd.DataFrame(intMat)
+    rows, columns = np.array(matrix.index), np.array(matrix.columns)
+    pairs = np.array([(r,c) for r in rows for c in columns])
+    for seed in seeds:
+        np.random.seed(seed=seed)
+        elements = np.random.permutation(pairs)
+        step = len(elements) // num
+        fold_data = list()
+        for i in range(num):
+            if i < num-1: fold_data.append(elements[i*step:(i+1)*step])
+            else: fold_data.append(elements[i*step:])
+        fold_data = np.array(fold_data)
+        for i in range(num):
+            test_data = fold_data[i]
+            x, y = test_data[:, 0], test_data[:, 1]
+            test_label = intMat[x, y]
+            W = np.ones(intMat.shape)
+            W[x, y] = 0
+            intMat_train = intMat.copy()
+            intMat_train[x, y] = 0
+            cv_data = cross_validation(intMat_train, [seed], cv=cv, num=num_fold)
+            ev_data[seed].append([W, test_data, test_label, cv_data])
+    return ev_data
 
 
 def train(model, cv_data, intMat, drugMat, targetMat):
