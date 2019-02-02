@@ -118,7 +118,7 @@ def main(argv):
         if cvs == 3:  # CV setting CVS3
             X, D, T, cv = intMat.T, targetMat, drugMat, 0
         cv_data = cross_validation(X, seeds, cv)
-        ev_data = external_validation(X, seeds, cv)
+        if cvs == 1: ev_data = external_validation(X, seeds, cv)
 
     if sp_arg == 0 and predict_num == 0 and external == 0:
         if method == 'nrlmf':
