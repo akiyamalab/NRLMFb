@@ -51,7 +51,8 @@ If you have any questions, please feel free to contact the author.
 
 References
 ----------
-Tomohiro Ban, Masahito Ohue, Yutaka Akiyama: **NRLMFβ: Bata-distribution-rescored Neighborhood Regularized Logistic Matrix Factorization for Improving Performance of Drug–Target Interaction Prediction**, _Biochemistry and Biophysics Reports_, 2019. (in press) doi: 10.1016/j.bbrep.2019.01.008 https://www.sciencedirect.com/science/article/pii/S2405580818302590
+Tomohiro Ban, Masahito Ohue, Yutaka Akiyama: **NRLMFβ: Bata-distribution-rescored Neighborhood Regularized Logistic Matrix Factorization for Improving Performance of Drug–Target Interaction Prediction**, _Biochemistry and Biophysics Reports_, 18: 100615, 2019. doi:10.1016/j.bbrep.2019.01.008.
+https://www.sciencedirect.com/science/article/pii/S2405580818302590
 
 Copyright © 2019 Akiyama Laboratory, Tokyo Institute of Technology, All Rights Reserved.
 
